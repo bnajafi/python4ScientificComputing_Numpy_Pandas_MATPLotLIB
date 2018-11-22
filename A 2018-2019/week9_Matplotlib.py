@@ -160,7 +160,50 @@ plt.title('Interesting Graph\nCheck it out')
 plt.show()
 
 
+# handling Time-series data and plotting it
+ExternalFilesFolder =  r"C:\Users\behzad\Dropbox\2 Teaching Activities\0 EETBS 2018\forked_repos\python4ScientificComputing_Numpy_Pandas_MATPLotLIB\ExternalFiles"
+ConsumptionFileName= "consumption_5545.csv"
+TemperatureFileName= "Austin_weather_2014.csv"
+IrradianceFileName= "irradiance_2014_gen.csv"
 
+path_consumptionFile = os.path.join(ExternalFilesFolder,ConsumptionFileName)
+path_TemperatureFile = os.path.join(ExternalFilesFolder,TemperatureFileName)
+path_IrradianceFile = os.path.join(ExternalFilesFolder,IrradianceFileName)
+
+DF_consumption = pd.read_csv(path_consumptionFile,sep=",", index_col=0)
+DF_consumption.head()
+DF_consumption.tail(10)
+
+PreviousIndex = DF_consumption.index
+NewParsedIndex= pd.to_datetime(PreviousIndex)
+DF_consumption.index =NewParsedIndex 
+
+DF_consumption.head()
+DF_consumption.index.hour
+DF_consumption.index.month
+DF_consumption.index.dayofweek
+
+DF_consumption_someDaysInJuly=DF_consumption["2014-07-01 00:00:00":"2014-07-03 23:00:00"]
+
+plt.figure()
+plt.plot(DF_consumption_someDaysInJuly)
+plt.xlabel("Time")
+plt.ylabel("AC Power (W)")
+plt.show()
+
+# There is asecond way of doing this !!!
+plt.figure()
+DF_consumption_someDaysInJuly.plot()
+plt.xlabel("Time")
+plt.ylabel("AC Power (W)")
+plt.show()
+
+#This is better !!
+
+# LEt's import the weather data 
+
+DF_weather = pd.read_csv(path_TemperatureFile,sep=";",index_col=0)
+DF_weather.head(24)
 
 
 
