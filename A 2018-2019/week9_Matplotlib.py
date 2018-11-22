@@ -204,6 +204,25 @@ plt.show()
 
 DF_weather = pd.read_csv(path_TemperatureFile,sep=";",index_col=0)
 DF_weather.head(24)
+previousIndex_weather=DF_weather.index
+newIndex_weather=pd.to_datetime(previousIndex_weather)
+DF_weather.index = newIndex_weather
+DF_weather.columns
+Series_Temperature = DF_weather["temperature"]
+
+DF_Temperature= DF_weather[["temperature"]]
+DF_Temperature.head()
 
 
+DF_irradianceSource = pd.read_csv(path_IrradianceFile,sep=";",index_col=1)
+DF_irradianceSource.head(24)
 
+DF_irradiance=DF_irradianceSource[["gen"]]
+DF_irradiance.head(24)
+
+DF_irradiance["gen"]<0
+DF_irradiance[DF_irradiance["gen"]<0] = 0
+DF_irradiance.head(24)
+
+
+DF_joined = DF_consumption.join([DF_Temperature,DF_irradiance])
